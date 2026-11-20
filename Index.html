@@ -107,21 +107,57 @@
 
     let verbs = [];
 
+    function parseCsvLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === ',' && !inQuotes) {
+          result.push(current.trim());
+          current = '';
+        } else {
+          current += ch;
+        }
+      }
+      result.push(current.trim());
+      return result;
+    }
+
     async function loadVerbs() {
       try {
-        const response = await fetch('verbs.csv');
+        const response = await fetch('verbs.csv?v=' + Date.now());
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
         const text = await response.text();
-        const lines = text.trim().split('\n');
+        const lines = text.replace(/\r\n/g, '\n').trim().split('\n').filter(Boolean);
 
         verbs = lines.slice(1).map(line => {
-          const [german, infinitive, past, participle, audio] = line.split(',').map(s => s.trim());
-          return { german, infinitive, past, participle, audio };
-        });
+          const [german, infinitive, past, participle, audio] = parseCsvLine(line);
+          return {
+            german: german || '',
+            infinitive: infinitive || '',
+            past: past || '',
+            participle: participle || '',
+            audio: audio || ''
+          };
+        }).filter(v => v.german && v.infinitive);
 
         renderTable();
         updateProgress();
       } catch (err) {
-        console.error('Fehler beim Laden der Verben:', err);
+        console.error('Fehler beim Laden der verbs.csv:', err);
+        document.getElementById('verbTableBody').innerHTML = `
+          <tr>
+            <td colspan="5" style="padding:24px;color:#ad4d58;font-weight:700;">
+              Die verbs.csv konnte nicht geladen werden. Bitte prüfe, ob verbs.csv im selben Ordner wie index.html liegt und über einen Webserver bzw. GitHub Pages geöffnet wird.
+            </td>
+          </tr>
+        `;
       }
     }
 
@@ -135,24 +171,24 @@
           <td><div class="cell-line"><span class="given">${v.german}</span></div></td>
           <td>
             <div class="cell-line">
-              <input type="text" class="answer" data-index="${index}" data-type="infinitive" placeholder="Infinitive...">
+              <input type="text" class="answer" data-index="${index}" data-field="infinitive" placeholder="Infinitive...">
             </div>
-            <div class="feedback" id="fb-infinitive-${index}"></div>
+            <div class="feedback" id="fb-${index}-infinitive"></div>
           </td>
           <td>
             <div class="cell-line">
-              <input type="text" class="answer" data-index="${index}" data-type="past" placeholder="Simple Past...">
+              <input type="text" class="answer" data-index="${index}" data-field="past" placeholder="Simple Past...">
             </div>
-            <div class="feedback" id="fb-past-${index}"></div>
+            <div class="feedback" id="fb-${index}-past"></div>
           </td>
           <td>
             <div class="cell-line">
-              <input type="text" class="answer" data-index="${index}" data-type="participle" placeholder="Past Participle...">
+              <input type="text" class="answer" data-index="${index}" data-field="participle" placeholder="Past Participle...">
             </div>
-            <div class="feedback" id="fb-participle-${index}"></div>
+            <div class="feedback" id="fb-${index}-participle"></div>
           </td>
           <td>
-            <button class="speak" onclick="playAudio('${v.audio}')" title="Anhören">
+            <button type="button" class="speak" data-audio="${v.audio}" title="Anhören">
               <i data-lucide="volume-2" style="width:16px;height:16px;"></i>
             </button>
           </td>
@@ -167,34 +203,56 @@
     function playAudio(audioFile) {
       if (!audioFile) return;
       const audio = new Audio(audioFile);
-      audio.play().catch(e => console.log("Audio-Wiedergabe blockiert:", e));
+      audio.play().catch(e => console.log('Audio-Wiedergabe blockiert:', e));
+    }
+
+    function normalizeInput(str) {
+      return str.toLowerCase().replace(/\s+/g, ' ').trim();
     }
 
     function attachListeners() {
-      const inputs = document.querySelectorAll('.answer');
+      document.querySelectorAll('.speak').forEach(btn => {
+        btn.addEventListener('click', () => {
+          playAudio(btn.getAttribute('data-audio'));
+        });
+      });
+
+      const inputs = Array.from(document.querySelectorAll('.answer'));
       inputs.forEach((input, idx) => {
         input.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
+            e.preventDefault();
             checkAnswer(input);
-            if (inputs[idx + 1]) inputs[idx + 1].focus();
+            if (inputs[idx + 1]) {
+              inputs[idx + 1].focus();
+            }
           }
         });
+
         input.addEventListener('blur', () => {
-          if (input.value.trim() !== '') checkAnswer(input);
+          if (input.value.trim() !== '') {
+            checkAnswer(input);
+          }
         });
       });
     }
 
     function checkAnswer(input) {
-      const index = input.getAttribute('data-index');
-      const type = input.getAttribute('data-type');
-      const val = input.value.trim().toLowerCase();
-      const rawTarget = verbs[index][type];
-      const target = rawTarget.toLowerCase();
-      const alternatives = target.split('/').map(s => s.trim());
-      const fb = document.getElementById(`fb-${type}-${index}`);
+      const index = Number(input.getAttribute('data-index'));
+      const field = input.getAttribute('data-field');
+      const verb = verbs[index];
+      if (!verb) return;
 
-      if (val === target || alternatives.includes(val)) {
+      const expectedRaw = verb[field];
+      const userAnswer = normalizeInput(input.value);
+      const allowedAnswers = expectedRaw
+        .split('/')
+        .map(part => normalizeInput(part))
+        .filter(Boolean);
+
+      const fb = document.getElementById(`fb-${index}-${field}`);
+
+      if (allowedAnswers.includes(userAnswer)) {
         input.classList.remove('incorrect');
         input.classList.add('correct');
         fb.textContent = 'Richtig! 🎉';
@@ -202,9 +260,10 @@
       } else {
         input.classList.remove('correct');
         input.classList.add('incorrect');
-        fb.textContent = `Richtig wäre: ${rawTarget}`;
+        fb.textContent = `Richtig wäre: ${expectedRaw}`;
         fb.className = 'feedback bad';
       }
+
       updateProgress();
     }
 
