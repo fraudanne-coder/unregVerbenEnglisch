@@ -28,15 +28,11 @@
     .hero-art { flex:none; width:56px; height:56px; border-radius:35% 65% 60% 40%; background:#ffcf71; color:#523987; display:grid; place-items:center; transform:rotate(8deg); box-shadow:6px 6px 0 rgba(255,255,255,.16); }
     .hero-art svg { width:26px;height:26px; stroke-width:2; }
 
-    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:22px 4px 14px; flex-wrap:wrap; }
-    .round-info { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:20px 4px 14px; flex-wrap:wrap; }
+    .round-info { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
     .round-badge { background:#f3e8ff; color:#563d8a; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #dfd0f5; }
     .toolbar p { color:var(--muted); margin:0; font-size:14px; }
-
-    .progress-wrap { display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #e8dbea; padding:9px 14px; border-radius:14px 6px 14px 6px; box-shadow:3px 4px 0 #efdfeb; }
-    .progress-track { width:116px; height:9px; background:#eee5f0; border-radius:20px; overflow:hidden; }
-    .progress-fill { height:100%; width:0; background:#e99d76; border-radius:20px; transition:width .3s; }
-    .progress-text { font-size:13px; font-weight:800; white-space:nowrap; color:#604b82; }
+    .audio-status { font-size:12px; font-weight:700; color:#694ba1; min-height:18px; }
 
     .table-card { background:#fffefa; border:1px solid #e7d8ca; border-radius:9px 24px 11px 24px; box-shadow:6px 7px 0 #f2dcca,0 15px 32px rgba(84,60,74,.07); overflow:hidden; }
     .table-scroll { overflow-x:auto; }
@@ -60,6 +56,7 @@
 
     .speak { width:35px; height:35px; flex:none; border:0; border-radius:50%; display:grid; place-items:center; color:#694ba1; background:#eee5f8; transition:transform .2s,background .2s; }
     .speak:hover { background:#e2d3f5; transform:rotate(-10deg) scale(1.08); }
+    .speak.playing { background:#694ba1; color:#fff; }
     .speak svg { width:17px; height:17px; }
 
     .feedback { font-size:11px; line-height:1.3; margin:5px 0 0; font-weight:700; min-height:0; }
@@ -95,10 +92,7 @@
         <span class="round-badge" id="roundBadge">Runde 1</span>
         <p id="roundSummary">5 Verben (15 Formen) in dieser Runde</p>
       </div>
-      <div class="progress-wrap">
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-text" id="progressText">0 / 15 richtig</div>
-      </div>
+      <div class="audio-status" id="audioStatus"></div>
     </div>
 
     <div class="table-card">
@@ -119,7 +113,7 @@
       <div class="bottom">
         <div class="hint">
           <i data-lucide="info" style="width:17px;height:17px;flex:none;"></i>
-          <span>Keine Zwischenkorrektur beim Wechseln der Felder – erst beim Klick auf <strong>Prüfen</strong>.</span>
+          <span>Mit Enter ins nächste Feld wechseln – ausgewertet wird erst beim Klick auf <strong>Prüfen</strong>.</span>
         </div>
         <div class="actions">
           <button type="button" class="btn btn-primary" id="checkBtn">
@@ -144,6 +138,7 @@
     let currentRoundVerbs = [];
     let roundNumber = 1;
     let isChecked = false;
+    let currentAudio = null;
 
     function parseCsvLine(line) {
       const result = [];
@@ -195,7 +190,6 @@
       document.getElementById('nextRoundBtn').disabled = true;
 
       renderTable();
-      updateProgress();
 
       const firstInput = document.querySelector('.answer');
       if (firstInput) firstInput.focus();
@@ -215,7 +209,7 @@
             infinitive: infinitive || '',
             past: past || '',
             participle: participle || '',
-            audio: audio || ''
+            audio: (audio || '').replace(/^\/+/, '')
           };
         }).filter(v => v.german && v.infinitive);
 
@@ -261,7 +255,7 @@
             <div class="feedback" id="fb-${index}-participle"></div>
           </td>
           <td>
-            <button type="button" class="speak" data-audio="${v.audio}" title="Aussprache anhören">
+            <button type="button" class="speak" data-index="${index}" title="Aussprache anhören">
               <i data-lucide="volume-2" style="width:16px;height:16px;"></i>
             </button>
           </td>
@@ -273,10 +267,74 @@
       attachListeners();
     }
 
-    function playAudio(audioFile) {
-      if (!audioFile) return;
-      const audio = new Audio(audioFile);
-      audio.play().catch(e => console.log('Audio-Wiedergabe blockiert:', e));
+    function setAudioStatus(msg) {
+      document.getElementById('audioStatus').textContent = msg;
+    }
+
+    function clearPlayingButtons() {
+      document.querySelectorAll('.speak.playing').forEach(btn => btn.classList.remove('playing'));
+    }
+
+    function speakFallback(verb) {
+      if (!('speechSynthesis' in window)) {
+        setAudioStatus(`Kein Audio gefunden (${verb.audio || 'Pfad fehlt'})`);
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const spokenText = `${verb.infinitive}, ${verb.past.replace(/\s*\/\s*/g, ' or ')}, ${verb.participle.replace(/\s*\/\s*/g, ' or ')}`;
+      const utter = new SpeechSynthesisUtterance(spokenText);
+      utter.lang = 'en-GB';
+      utter.rate = 0.92;
+      utter.onstart = () => setAudioStatus(`Vorlese-Fallback: ${spokenText}`);
+      utter.onend = () => {
+        clearPlayingButtons();
+        setAudioStatus('');
+      };
+      utter.onerror = () => {
+        clearPlayingButtons();
+        setAudioStatus(`Audio nicht verfügbar (${verb.audio})`);
+      };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function playVerbAudio(index, buttonEl) {
+      const verb = currentRoundVerbs[index];
+      if (!verb) return;
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      clearPlayingButtons();
+
+      const fallbackFile = `audio/${verb.infinitive.toLowerCase().replace(/[^a-z]/g, '')}.mp3`;
+      const audioSrc = verb.audio || fallbackFile;
+
+      if (buttonEl) buttonEl.classList.add('playing');
+      setAudioStatus(`Spiele ${audioSrc} ...`);
+
+      const audio = new Audio(audioSrc);
+      currentAudio = audio;
+
+      audio.addEventListener('ended', () => {
+        clearPlayingButtons();
+        setAudioStatus('');
+      });
+
+      audio.addEventListener('error', () => {
+        if (currentAudio === audio) {
+          speakFallback(verb);
+        }
+      });
+
+      audio.play().catch(() => {
+        if (currentAudio === audio) {
+          speakFallback(verb);
+        }
+      });
     }
 
     function normalizeInput(str) {
@@ -286,7 +344,7 @@
     function attachListeners() {
       document.querySelectorAll('.speak').forEach(btn => {
         btn.addEventListener('click', () => {
-          playAudio(btn.getAttribute('data-audio'));
+          playVerbAudio(Number(btn.getAttribute('data-index')), btn);
         });
       });
 
@@ -340,14 +398,8 @@
       isChecked = true;
       document.getElementById('checkBtn').disabled = true;
       document.getElementById('nextRoundBtn').disabled = false;
-      updateProgress(correctCount, inputs.length);
+      document.getElementById('roundSummary').textContent = `${correctCount} von ${inputs.length} Formen richtig`;
       document.getElementById('nextRoundBtn').focus();
-    }
-
-    function updateProgress(correctCount = 0, total = currentRoundVerbs.length * 3) {
-      const pct = total > 0 ? (correctCount / total) * 100 : 0;
-      document.getElementById('progressFill').style.width = pct + '%';
-      document.getElementById('progressText').textContent = `${correctCount} / ${total} richtig`;
     }
 
     document.getElementById('checkBtn').addEventListener('click', checkRound);
