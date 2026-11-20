@@ -1,6 +1,75 @@
 infinitive,past,participle,audio
-be,was / were,been,audio/be.mp3
-break,broke,broken,audio/break.mp3
-choose,chose,chosen,audio/choose.mp3
-do,did,done,audio/do.mp3
-go,went,gone,audio/go.mp3
+anfangen,du fängst an,er fing an,er hat angefangen,audio/anfangen.mp3
+beginnen,du beginnst,sie begann,sie hat begonnen,audio/beginnen.mp3
+beißen,du beißt,er biss,er hat gebissen,audio/beißen.mp3
+bekommen,du bekommst,sie bekam,sie hat bekommen,audio/bekommen.mp3
+besprechen,du besprichst,er besprach,sie haben besprochen,audio/besprechen.mp3
+bieten,du bietest,er bot,er hat geboten,audio/bieten.mp3
+bitten,du bittest,sie bat,sie hat gebeten,audio/bitten.mp3
+bleiben,du bleibst,sie blieb,sie ist geblieben,audio/bleiben.mp3
+brennen,du brennst,es brannte,es hat gebrannt,audio/brennen.mp3
+bringen,du bringst,sie brachte,sie hat gebracht,audio/bringen.mp3
+dürfen,du darfst,er durfte,er hat gedurft,audio/dürfen.mp3
+einladen,du lädst ein,sie lud ein,sie hat eingeladen,audio/einladen.mp3
+erschrecken,du erschrickst,er erschrak,er ist erschrocken,audio/erschrecken.mp3
+essen,du isst,er aß,er hat gegessen,audio/essen.mp3
+fahren,du fährst,sie fuhr,sie ist gefahren,audio/fahren.mp3
+fallen,du fällst,er fiel,er ist gefallen,audio/fallen.mp3
+fangen,du fängst,sie fing,sie hat gefangen,audio/fangen.mp3
+finden,du findest,er fand,er hat gefunden,audio/finden.mp3
+fließen,es fließt,es floss,es ist geflossen,audio/fließen.mp3
+frieren,du frierst,er fror,er hat gefroren,audio/frieren.mp3
+geben,du gibst,er gab,er hat gegeben,audio/geben.mp3
+gehen,du gehst,er ging,er ist gegangen,audio/gehen.mp3
+gelingen,es gelingt,es gelang,es ist gelungen,audio/gelingen.mp3
+genießen,du genießt,sie genoss,sie hat genossen,audio/genießen.mp3
+geschehen,es geschieht,es geschah,es ist geschehen,audio/geschehen.mp3
+greifen,du greifst,sie griff,sie hat gegriffen,audio/greifen.mp3
+haben,du hast,er hatte,er hat gehabt,audio/haben.mp3
+halten,du hältst,sie hielt,sie hat gehalten,audio/halten.mp3
+heben,du hebst,er hob,er hat gehoben,audio/heben.mp3
+heißen,du heißt,sie hieß,sie hat geheißen,audio/heißen.mp3
+helfen,du hilfst,er half,er hat geholfen,audio/helfen.mp3
+kennen,du kennst,sie kannte,sie hat gekannt,audio/kennen.mp3
+kommen,du kommst,sie kam,sie ist gekommen,audio/kommen.mp3
+können,du kannst,er konnte,er hat gekonnt,audio/können.mp3
+lassen,du lässt,sie ließ,sie hat gelassen,audio/lassen.mp3
+laufen,du läufst,er lief,er ist gelaufen,audio/laufen.mp3
+leiden,du leidest,sie litt,sie hat gelitten,audio/leiden.mp3
+lesen,du liest,er las,er hat gelesen,audio/lesen.mp3
+liegen,du liegst,er lag,er hat gelegen,audio/liegen.mp3
+lügen,du lügst,es log,es hat gelogen,audio/lügen.mp3
+mögen,du magst,sie mochte,sie hat gemocht,audio/mögen.mp3
+nehmen,du nimmst,er nahm,er hat genommen,audio/nehmen.mp3
+raten,du rätst,sie riet,sie hat geraten,audio/raten.mp3
+rennen,du rennst,es rannte,es ist gerannt,audio/rennen.mp3
+riechen,du riechst,er roch,er hat gerochen,audio/riechen.mp3
+rufen,du rufst,er rief,er hat gerufen,audio/rufen.mp3
+scheinen,du scheinst,sie schien,sie hat geschienen,audio/scheinen.mp3
+schieben,du schiebst,sie schob,sie hat geschoben,audio/schieben.mp3
+schlafen,du schläfst,er schlief,er hat geschlafen,audio/schlafen.mp3
+schleichen,du schleichst,es schlich,es ist geschlichen,audio/schleichen.mp3
+schließen,du schließt,sie schloss,sie hat geschlossen,audio/schließen.mp3
+schneiden,du schneidest,er schnitt,er hat geschnitten,audio/schneiden.mp3
+schreien,du schreist,er schrie,er hat geschrien,audio/schreien.mp3
+schwimmen,du schwimmst,er schwamm,er ist geschwommen,audio/schwimmen.mp3
+sehen,du siehst,sie sah,sie hat gesehen,audio/sehen.mp3
+sein,du bist,er war,er ist gewesen,audio/sein.mp3
+singen,du singst,er sang,er hat gesungen,audio/singen.mp3
+sitzen,du sitzt,sie saß,sie ist/hat gesessen,audio/sitzen.mp3
+sprechen,du sprichst,sie sprach,sie hat gesprochen,audio/sprechen.mp3
+springen,du springst,es sprang,es ist gesprungen,audio/springen.mp3
+stehen,du stehst,er stand,er ist/hat gestanden,audio/stehen.mp3
+stoßen,du stößt,er stieß,er hat gestoßen,audio/stoßen.mp3
+streiten,du streitest,sie stritt,sie hat gestritten,audio/streiten.mp3
+treffen,du triffst,sie traf,sie hat getroffen,audio/treffen.mp3
+treten,du trittst,sie trat,sie hat getreten,audio/treten.mp3
+tun,du tust,sie tat,sie hat getan,audio/tun.mp3
+vergessen,du vergisst,sie vergaß,sie hat vergessen,audio/vergessen.mp3
+verlieren,du verlierst,er verlor,er hat verloren,audio/verlieren.mp3
+verzeihen,du verzeihst,sie verzieh,sie hat verziehen,audio/verzeihen.mp3
+wachsen,du wächst,er wuchs,er ist gewachsen,audio/wachsen.mp3
+werden,du wirst,sie wurde,sie ist geworden,audio/werden.mp3
+wissen,du weißt,sie wusste,sie hat gewusst,audio/wissen.mp3
+wollen,du willst,sie wollte,sie hat gewollt,audio/wollen.mp3
+ziehen,du ziehst,er zog,er hat gezogen,audio/ziehen.mp3
