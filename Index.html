@@ -15,7 +15,7 @@
     body { margin:0; color:var(--ink); background:radial-gradient(circle at 8% 8%,#ffe4d8 0,transparent 26%),radial-gradient(circle at 91% 28%,#e8ddfa 0,transparent 30%),var(--bg); }
     button { cursor:pointer; }
     button:focus-visible, input:focus-visible { outline:3px solid #a787d7; outline-offset:3px; }
-    .shell { max-width:1120px; margin:0 auto; padding:42px 24px 60px; }
+    .shell { max-width:1180px; margin:0 auto; padding:42px 24px 60px; }
     .hero { position:relative; overflow:hidden; border-radius:12px 46px 16px 42px; background:#56418e; color:white; padding:43px 48px; display:flex; justify-content:space-between; align-items:center; gap:20px; box-shadow:9px 10px 0 #e5d6f0,0 22px 42px rgba(73,49,113,.13); }
     .hero:before,.hero:after { content:""; position:absolute; border:2px dashed rgba(255,255,255,.2); border-radius:50%; width:330px; height:330px; right:-83px; top:-183px; transform:rotate(-20deg); }
     .hero:after { width:196px;height:196px;right:135px;top:122px;border-style:solid;border-color:rgba(255,255,255,.12); }
@@ -35,16 +35,16 @@
     .progress-text { font-size:13px; font-weight:800; white-space:nowrap; color:#604b82; }
     .table-card { background:#fffefa; border:1px solid #e7d8ca; border-radius:9px 27px 11px 27px; box-shadow:6px 7px 0 #f2dcca,0 15px 32px rgba(84,60,74,.07); overflow:hidden; }
     .table-scroll { overflow-x:auto; }
-    table { border-collapse:collapse; width:100%; min-width:790px; table-layout:fixed; }
+    table { border-collapse:collapse; width:100%; min-width:920px; table-layout:fixed; }
+    th:first-child, td:first-child { width:22%; padding-left:27px; }
     th:last-child, td:last-child { width:72px; padding-left:8px; padding-right:16px; text-align:center; }
-    th { background:#f7e9d9; color:#664b68; text-align:left; padding:18px 20px; font-size:12px; letter-spacing:.065em; text-transform:uppercase; font-weight:800; }
-    th:first-child,td:first-child { padding-left:27px; }
-    td { border-top:1px dashed #e9e0d7; padding:13px 13px 13px 20px; height:76px; vertical-align:top; }
+    th { background:#f7e9d9; color:#664b68; text-align:left; padding:18px 16px; font-size:12px; letter-spacing:.065em; text-transform:uppercase; font-weight:800; }
+    td { border-top:1px dashed #e9e0d7; padding:13px 12px 13px 16px; height:76px; vertical-align:top; }
     tbody tr:nth-child(even) { background:#fffaf4; }
     tbody tr:hover { background:#faf3ff; }
     tr:first-child td { border-top:0; }
     .cell-line { display:flex; align-items:center; gap:7px; min-height:40px; }
-    .given { display:inline-block; padding:9px 12px; border-radius:5px 12px 5px 12px; background:#e8def7; color:#5e408d; font-weight:800; min-width:76px; }
+    .given { display:inline-block; padding:9px 12px; border-radius:5px 12px 5px 12px; background:#e8def7; color:#5e408d; font-weight:800; font-size:14px; }
     .answer { width:100%; min-width:80px; height:40px; border:1.5px solid #decfe4; border-radius:7px 12px 7px 12px; background:#fff; color:var(--ink); padding:0 11px; font-size:14px; font-weight:600; transition:border-color .2s,background .2s,box-shadow .2s; }
     .answer::placeholder { color:#aaa0ad; font-weight:400; }
     .answer:focus { border-color:var(--blue); box-shadow:0 0 0 3px #eee4fa; }
@@ -56,7 +56,7 @@
     .feedback { font-size:11px; line-height:1.3; margin:5px 0 0; font-weight:700; min-height:0; }
     .feedback.good { color:var(--green); } .feedback.bad { color:var(--red); }
     .bottom { padding:21px 24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:15px; flex-wrap:wrap; background:#fffcf6; }
-    .hint { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; max-width:530px; }
+    .hint { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; max-width:580px; }
   </style>
  </head>
  <body>
@@ -65,7 +65,7 @@
       <div class="hero-copy">
         <span class="eyebrow"><i data-lucide="sparkles"></i> English Grammar Training</span>
         <h1>Unregelmäßige Verben üben</h1>
-        <p>Trage die gesuchten Formen ein. Überprüfe deine Eingaben mit Enter oder Tab und höre dir die Aussprache an.</p>
+        <p>Trage Infinitive, Simple Past und Past Participle zum deutschen Verb ein. Überprüfe deine Eingaben mit Enter oder Tab und höre dir die Aussprache an.</p>
       </div>
       <div class="hero-art"><i data-lucide="headphones"></i></div>
     </header>
@@ -73,7 +73,7 @@
     <div class="toolbar">
       <div>
         <h2>Verben-Trainer</h2>
-        <p>Fülle die Lücken für Simple Past und Past Participle aus.</p>
+        <p>Fülle alle drei englischen Stammformen aus.</p>
       </div>
       <div class="progress-wrap">
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -86,15 +86,14 @@
         <table>
           <thead>
             <tr>
+              <th>Deutsch</th>
               <th>Infinitive</th>
               <th>Simple Past</th>
               <th>Past Participle</th>
               <th>Audio</th>
             </tr>
           </thead>
-          <tbody id="verbTableBody">
-            <!-- Wird dynamisch aus verbs.csv geladen -->
-          </tbody>
+          <tbody id="verbTableBody"></tbody>
         </table>
       </div>
       <div class="bottom">
@@ -113,13 +112,14 @@
         const response = await fetch('verbs.csv');
         const text = await response.text();
         const lines = text.trim().split('\n');
-        
+
         verbs = lines.slice(1).map(line => {
-          const [infinitive, past, participle, audio] = line.split(',').map(s => s.trim());
-          return { infinitive, past, participle, audio };
+          const [german, infinitive, past, participle, audio] = line.split(',').map(s => s.trim());
+          return { german, infinitive, past, participle, audio };
         });
 
         renderTable();
+        updateProgress();
       } catch (err) {
         console.error('Fehler beim Laden der Verben:', err);
       }
@@ -132,7 +132,13 @@
       verbs.forEach((v, index) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><strong>${v.infinitive}</strong></td>
+          <td><div class="cell-line"><span class="given">${v.german}</span></div></td>
+          <td>
+            <div class="cell-line">
+              <input type="text" class="answer" data-index="${index}" data-type="infinitive" placeholder="Infinitive...">
+            </div>
+            <div class="feedback" id="fb-infinitive-${index}"></div>
+          </td>
           <td>
             <div class="cell-line">
               <input type="text" class="answer" data-index="${index}" data-type="past" placeholder="Simple Past...">
@@ -143,7 +149,7 @@
             <div class="cell-line">
               <input type="text" class="answer" data-index="${index}" data-type="participle" placeholder="Past Participle...">
             </div>
-            <div class="feedback" id="fb-part-${index}"></div>
+            <div class="feedback" id="fb-participle-${index}"></div>
           </td>
           <td>
             <button class="speak" onclick="playAudio('${v.audio}')" title="Anhören">
@@ -166,14 +172,15 @@
 
     function attachListeners() {
       const inputs = document.querySelectorAll('.answer');
-      inputs.forEach(input => {
+      inputs.forEach((input, idx) => {
         input.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             checkAnswer(input);
+            if (inputs[idx + 1]) inputs[idx + 1].focus();
           }
         });
         input.addEventListener('blur', () => {
-          if(input.value.trim() !== '') checkAnswer(input);
+          if (input.value.trim() !== '') checkAnswer(input);
         });
       });
     }
@@ -182,10 +189,12 @@
       const index = input.getAttribute('data-index');
       const type = input.getAttribute('data-type');
       const val = input.value.trim().toLowerCase();
-      const target = verbs[index][type].toLowerCase();
-      const fb = document.getElementById(`fb-${type === 'past' ? 'past' : 'part'}-${index}`);
+      const rawTarget = verbs[index][type];
+      const target = rawTarget.toLowerCase();
+      const alternatives = target.split('/').map(s => s.trim());
+      const fb = document.getElementById(`fb-${type}-${index}`);
 
-      if (val === target) {
+      if (val === target || alternatives.includes(val)) {
         input.classList.remove('incorrect');
         input.classList.add('correct');
         fb.textContent = 'Richtig! 🎉';
@@ -193,16 +202,16 @@
       } else {
         input.classList.remove('correct');
         input.classList.add('incorrect');
-        fb.textContent = `Fichtig wäre: ${verbs[index][type]}`;
+        fb.textContent = `Richtig wäre: ${rawTarget}`;
         fb.className = 'feedback bad';
       }
       updateProgress();
     }
 
     function updateProgress() {
-      const total = verbs.length * 2;
+      const total = verbs.length * 3;
       const correctInputs = document.querySelectorAll('.answer.correct').length;
-      const pct = (correctInputs / total) * 100;
+      const pct = total > 0 ? (correctInputs / total) * 100 : 0;
       document.getElementById('progressFill').style.width = pct + '%';
       document.getElementById('progressText').textContent = `${correctInputs} / ${total} gelöst`;
     }
