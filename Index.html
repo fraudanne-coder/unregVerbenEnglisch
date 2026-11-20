@@ -15,48 +15,68 @@
     body { margin:0; color:var(--ink); background:radial-gradient(circle at 8% 8%,#ffe4d8 0,transparent 26%),radial-gradient(circle at 91% 28%,#e8ddfa 0,transparent 30%),var(--bg); }
     button { cursor:pointer; }
     button:focus-visible, input:focus-visible { outline:3px solid #a787d7; outline-offset:3px; }
-    .shell { max-width:1180px; margin:0 auto; padding:42px 24px 60px; }
-    .hero { position:relative; overflow:hidden; border-radius:12px 46px 16px 42px; background:#56418e; color:white; padding:43px 48px; display:flex; justify-content:space-between; align-items:center; gap:20px; box-shadow:9px 10px 0 #e5d6f0,0 22px 42px rgba(73,49,113,.13); }
-    .hero:before,.hero:after { content:""; position:absolute; border:2px dashed rgba(255,255,255,.2); border-radius:50%; width:330px; height:330px; right:-83px; top:-183px; transform:rotate(-20deg); }
-    .hero:after { width:196px;height:196px;right:135px;top:122px;border-style:solid;border-color:rgba(255,255,255,.12); }
+    .shell { max-width:1160px; margin:0 auto; padding:24px 24px 48px; }
+
+    /* Kompakter Header */
+    .hero { position:relative; overflow:hidden; border-radius:12px 32px 14px 32px; background:#56418e; color:white; padding:20px 28px; display:flex; justify-content:space-between; align-items:center; gap:18px; box-shadow:6px 7px 0 #e5d6f0,0 14px 28px rgba(73,49,113,.12); }
+    .hero:before { content:""; position:absolute; border:2px dashed rgba(255,255,255,.18); border-radius:50%; width:220px; height:220px; right:-60px; top:-110px; }
     .hero-copy,.hero-art { position:relative; z-index:1; }
-    .eyebrow { display:inline-flex; align-items:center; gap:8px; color:#442d74; background:#ffda83; padding:8px 13px; border-radius:4px 14px 4px 14px; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; transform:rotate(-2deg); }
-    .eyebrow svg { width:15px;height:15px; }
-    h1 { font-family:"Nunito",sans-serif; font-size:clamp(31px,4vw,46px); line-height:1.12; margin:20px 0 12px; letter-spacing:-.035em; max-width:700px; }
-    .hero p { color:#eee7ff; margin:0; line-height:1.65; max-width:610px; }
-    .hero-art { flex:none; width:116px;height:116px; border-radius:30% 70% 65% 35%; background:#ffcf71; color:#523987; display:grid; place-items:center; transform:rotate(11deg); box-shadow:12px 12px 0 rgba(255,255,255,.18); }
-    .hero-art svg { width:55px;height:55px; stroke-width:1.7; }
-    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:40px 4px 20px; flex-wrap:wrap; }
-    h2 { font-family:"Nunito",sans-serif; font-size:25px; margin:0 0 5px; letter-spacing:-.02em; }
+    .eyebrow { display:inline-flex; align-items:center; gap:6px; color:#442d74; background:#ffda83; padding:4px 10px; border-radius:4px 10px 4px 10px; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .eyebrow svg { width:13px;height:13px; }
+    h1 { font-family:"Nunito",sans-serif; font-size:clamp(22px,2.8vw,30px); line-height:1.15; margin:8px 0 4px; letter-spacing:-.025em; }
+    .hero p { color:#eee7ff; margin:0; font-size:14px; line-height:1.45; max-width:680px; }
+    .hero-art { flex:none; width:56px; height:56px; border-radius:35% 65% 60% 40%; background:#ffcf71; color:#523987; display:grid; place-items:center; transform:rotate(8deg); box-shadow:6px 6px 0 rgba(255,255,255,.16); }
+    .hero-art svg { width:26px;height:26px; stroke-width:2; }
+
+    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:22px 4px 14px; flex-wrap:wrap; }
+    .round-info { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .round-badge { background:#f3e8ff; color:#563d8a; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #dfd0f5; }
     .toolbar p { color:var(--muted); margin:0; font-size:14px; }
-    .progress-wrap { display:flex; align-items:center; gap:13px; min-width:230px; background:#fff; border:1px solid #e8dbea; padding:11px 15px; border-radius:18px 6px 18px 6px; box-shadow:3px 4px 0 #efdfeb; }
-    .progress-track { width:126px; height:10px; background:#eee5f0; border-radius:20px; overflow:hidden; }
+
+    .progress-wrap { display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #e8dbea; padding:9px 14px; border-radius:14px 6px 14px 6px; box-shadow:3px 4px 0 #efdfeb; }
+    .progress-track { width:116px; height:9px; background:#eee5f0; border-radius:20px; overflow:hidden; }
     .progress-fill { height:100%; width:0; background:#e99d76; border-radius:20px; transition:width .3s; }
     .progress-text { font-size:13px; font-weight:800; white-space:nowrap; color:#604b82; }
-    .table-card { background:#fffefa; border:1px solid #e7d8ca; border-radius:9px 27px 11px 27px; box-shadow:6px 7px 0 #f2dcca,0 15px 32px rgba(84,60,74,.07); overflow:hidden; }
+
+    .table-card { background:#fffefa; border:1px solid #e7d8ca; border-radius:9px 24px 11px 24px; box-shadow:6px 7px 0 #f2dcca,0 15px 32px rgba(84,60,74,.07); overflow:hidden; }
     .table-scroll { overflow-x:auto; }
-    table { border-collapse:collapse; width:100%; min-width:920px; table-layout:fixed; }
-    th:first-child, td:first-child { width:22%; padding-left:27px; }
+    table { border-collapse:collapse; width:100%; min-width:900px; table-layout:fixed; }
+    th:first-child, td:first-child { width:22%; padding-left:24px; }
     th:last-child, td:last-child { width:72px; padding-left:8px; padding-right:16px; text-align:center; }
-    th { background:#f7e9d9; color:#664b68; text-align:left; padding:18px 16px; font-size:12px; letter-spacing:.065em; text-transform:uppercase; font-weight:800; }
-    td { border-top:1px dashed #e9e0d7; padding:13px 12px 13px 16px; height:76px; vertical-align:top; }
+    th { background:#f7e9d9; color:#664b68; text-align:left; padding:14px 16px; font-size:12px; letter-spacing:.065em; text-transform:uppercase; font-weight:800; }
+    td { border-top:1px dashed #e9e0d7; padding:12px 12px 12px 16px; height:76px; vertical-align:top; }
     tbody tr:nth-child(even) { background:#fffaf4; }
     tbody tr:hover { background:#faf3ff; }
     tr:first-child td { border-top:0; }
+
     .cell-line { display:flex; align-items:center; gap:7px; min-height:40px; }
-    .given { display:inline-block; padding:9px 12px; border-radius:5px 12px 5px 12px; background:#e8def7; color:#5e408d; font-weight:800; font-size:14px; }
+    .given { display:inline-block; padding:8px 12px; border-radius:5px 12px 5px 12px; background:#e8def7; color:#5e408d; font-weight:800; font-size:14px; }
     .answer { width:100%; min-width:80px; height:40px; border:1.5px solid #decfe4; border-radius:7px 12px 7px 12px; background:#fff; color:var(--ink); padding:0 11px; font-size:14px; font-weight:600; transition:border-color .2s,background .2s,box-shadow .2s; }
     .answer::placeholder { color:#aaa0ad; font-weight:400; }
     .answer:focus { border-color:var(--blue); box-shadow:0 0 0 3px #eee4fa; }
+    .answer:disabled { opacity:.9; cursor:default; }
     .answer.correct { border-color:#6cbd9a; background:#effaf4; }
     .answer.incorrect { border-color:#e4a4a0; background:#fff4f2; }
+
     .speak { width:35px; height:35px; flex:none; border:0; border-radius:50%; display:grid; place-items:center; color:#694ba1; background:#eee5f8; transition:transform .2s,background .2s; }
     .speak:hover { background:#e2d3f5; transform:rotate(-10deg) scale(1.08); }
     .speak svg { width:17px; height:17px; }
+
     .feedback { font-size:11px; line-height:1.3; margin:5px 0 0; font-weight:700; min-height:0; }
-    .feedback.good { color:var(--green); } .feedback.bad { color:var(--red); }
-    .bottom { padding:21px 24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:15px; flex-wrap:wrap; background:#fffcf6; }
-    .hint { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; max-width:580px; }
+    .feedback.good { color:var(--green); }
+    .feedback.bad { color:var(--red); }
+
+    .bottom { padding:16px 24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:15px; flex-wrap:wrap; background:#fffcf6; }
+    .hint { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; }
+    .actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+    .btn { border:0; border-radius:10px; padding:10px 18px; font-size:14px; font-weight:800; display:inline-flex; align-items:center; gap:7px; transition:transform .15s,background .2s,opacity .2s; }
+    .btn:active:not(:disabled) { transform:scale(.98); }
+    .btn:disabled { opacity:.45; cursor:not-allowed; }
+    .btn-primary { background:#694ba1; color:#fff; box-shadow:0 4px 0 #4d347b; }
+    .btn-primary:hover:not(:disabled) { background:#593d8d; }
+    .btn-secondary { background:#ffda83; color:#442d74; box-shadow:0 4px 0 #e2b859; }
+    .btn-secondary:hover:not(:disabled) { background:#ffd166; }
   </style>
  </head>
  <body>
@@ -64,20 +84,20 @@
     <header class="hero">
       <div class="hero-copy">
         <span class="eyebrow"><i data-lucide="sparkles"></i> English Grammar Training</span>
-        <h1>Unregelmäßige Verben üben</h1>
-        <p>Trage Infinitive, Simple Past und Past Participle zum deutschen Verb ein. Überprüfe deine Eingaben mit Enter oder Tab und höre dir die Aussprache an.</p>
+        <h1>Unregelmäßige Verben</h1>
+        <p>Fülle alle 5 Verben in Ruhe aus – mit Enter springst du weiter. Erst mit „Prüfen“ wird ausgewertet.</p>
       </div>
       <div class="hero-art"><i data-lucide="headphones"></i></div>
     </header>
 
     <div class="toolbar">
-      <div>
-        <h2>Verben-Trainer</h2>
-        <p>Fülle alle drei englischen Stammformen aus.</p>
+      <div class="round-info">
+        <span class="round-badge" id="roundBadge">Runde 1</span>
+        <p id="roundSummary">5 Verben (15 Formen) in dieser Runde</p>
       </div>
       <div class="progress-wrap">
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-text" id="progressText">0 / 0 gelöst</div>
+        <div class="progress-text" id="progressText">0 / 15 richtig</div>
       </div>
     </div>
 
@@ -97,7 +117,20 @@
         </table>
       </div>
       <div class="bottom">
-        <div class="hint"><i data-lucide="info" style="width:18px;height:18px;flex:none;"></i> Tipp: Drücke Enter nach der Eingabe, um die Antwort direkt zu prüfen.</div>
+        <div class="hint">
+          <i data-lucide="info" style="width:17px;height:17px;flex:none;"></i>
+          <span>Keine Zwischenkorrektur beim Wechseln der Felder – erst beim Klick auf <strong>Prüfen</strong>.</span>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="checkBtn">
+            <i data-lucide="check-circle-2" style="width:17px;height:17px;"></i>
+            Prüfen
+          </button>
+          <button type="button" class="btn btn-secondary" id="nextRoundBtn" disabled>
+            <i data-lucide="arrow-right" style="width:17px;height:17px;"></i>
+            Nächste Runde
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,7 +138,12 @@
   <script>
     lucide.createIcons();
 
-    let verbs = [];
+    const ROUND_SIZE = 5;
+    let allVerbs = [];
+    let remainingPool = [];
+    let currentRoundVerbs = [];
+    let roundNumber = 1;
+    let isChecked = false;
 
     function parseCsvLine(line) {
       const result = [];
@@ -127,16 +165,50 @@
       return result;
     }
 
+    function shuffle(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function refillPoolIfNeeded(needed) {
+      if (remainingPool.length < needed) {
+        const usedKeys = new Set(currentRoundVerbs.map(v => `${v.german}|${v.infinitive}`));
+        const fresh = shuffle(allVerbs.filter(v => !usedKeys.has(`${v.german}|${v.infinitive}`)));
+        const fallback = shuffle(allVerbs.filter(v => usedKeys.has(`${v.german}|${v.infinitive}`)));
+        remainingPool = [...remainingPool, ...fresh, ...fallback];
+      }
+    }
+
+    function startRound() {
+      const size = Math.min(ROUND_SIZE, allVerbs.length);
+      refillPoolIfNeeded(size);
+      currentRoundVerbs = remainingPool.splice(0, size);
+      isChecked = false;
+
+      document.getElementById('roundBadge').textContent = `Runde ${roundNumber}`;
+      document.getElementById('roundSummary').textContent = `${currentRoundVerbs.length} Verben (${currentRoundVerbs.length * 3} Formen) in dieser Runde`;
+      document.getElementById('checkBtn').disabled = false;
+      document.getElementById('nextRoundBtn').disabled = true;
+
+      renderTable();
+      updateProgress();
+
+      const firstInput = document.querySelector('.answer');
+      if (firstInput) firstInput.focus();
+    }
+
     async function loadVerbs() {
       try {
         const response = await fetch('verbs.csv?v=' + Date.now());
-        if (!response.ok) {
-          throw new Error('HTTP ' + response.status);
-        }
+        if (!response.ok) throw new Error('HTTP ' + response.status);
         const text = await response.text();
         const lines = text.replace(/\r\n/g, '\n').trim().split('\n').filter(Boolean);
 
-        verbs = lines.slice(1).map(line => {
+        allVerbs = lines.slice(1).map(line => {
           const [german, infinitive, past, participle, audio] = parseCsvLine(line);
           return {
             german: german || '',
@@ -147,17 +219,18 @@
           };
         }).filter(v => v.german && v.infinitive);
 
-        renderTable();
-        updateProgress();
+        remainingPool = shuffle(allVerbs);
+        startRound();
       } catch (err) {
         console.error('Fehler beim Laden der verbs.csv:', err);
         document.getElementById('verbTableBody').innerHTML = `
           <tr>
             <td colspan="5" style="padding:24px;color:#ad4d58;font-weight:700;">
-              Die verbs.csv konnte nicht geladen werden. Bitte prüfe, ob verbs.csv im selben Ordner wie index.html liegt und über einen Webserver bzw. GitHub Pages geöffnet wird.
+              Die verbs.csv konnte nicht geladen werden. Bitte prüfe, ob verbs.csv im Repository liegt und über GitHub Pages / einen Webserver geöffnet wird.
             </td>
           </tr>
         `;
+        document.getElementById('checkBtn').disabled = true;
       }
     }
 
@@ -165,30 +238,30 @@
       const tbody = document.getElementById('verbTableBody');
       tbody.innerHTML = '';
 
-      verbs.forEach((v, index) => {
+      currentRoundVerbs.forEach((v, index) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td><div class="cell-line"><span class="given">${v.german}</span></div></td>
           <td>
             <div class="cell-line">
-              <input type="text" class="answer" data-index="${index}" data-field="infinitive" placeholder="Infinitive...">
+              <input type="text" class="answer" data-index="${index}" data-field="infinitive" placeholder="Infinitive..." autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
             <div class="feedback" id="fb-${index}-infinitive"></div>
           </td>
           <td>
             <div class="cell-line">
-              <input type="text" class="answer" data-index="${index}" data-field="past" placeholder="Simple Past...">
+              <input type="text" class="answer" data-index="${index}" data-field="past" placeholder="Simple Past..." autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
             <div class="feedback" id="fb-${index}-past"></div>
           </td>
           <td>
             <div class="cell-line">
-              <input type="text" class="answer" data-index="${index}" data-field="participle" placeholder="Past Participle...">
+              <input type="text" class="answer" data-index="${index}" data-field="participle" placeholder="Past Participle..." autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
             <div class="feedback" id="fb-${index}-participle"></div>
           </td>
           <td>
-            <button type="button" class="speak" data-audio="${v.audio}" title="Anhören">
+            <button type="button" class="speak" data-audio="${v.audio}" title="Aussprache anhören">
               <i data-lucide="volume-2" style="width:16px;height:16px;"></i>
             </button>
           </td>
@@ -222,58 +295,66 @@
         input.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            checkAnswer(input);
             if (inputs[idx + 1]) {
               inputs[idx + 1].focus();
+            } else if (!isChecked) {
+              checkRound();
             }
-          }
-        });
-
-        input.addEventListener('blur', () => {
-          if (input.value.trim() !== '') {
-            checkAnswer(input);
           }
         });
       });
     }
 
-    function checkAnswer(input) {
-      const index = Number(input.getAttribute('data-index'));
-      const field = input.getAttribute('data-field');
-      const verb = verbs[index];
-      if (!verb) return;
+    function checkRound() {
+      const inputs = Array.from(document.querySelectorAll('.answer'));
+      let correctCount = 0;
 
-      const expectedRaw = verb[field];
-      const userAnswer = normalizeInput(input.value);
-      const allowedAnswers = expectedRaw
-        .split('/')
-        .map(part => normalizeInput(part))
-        .filter(Boolean);
+      inputs.forEach(input => {
+        const index = Number(input.getAttribute('data-index'));
+        const field = input.getAttribute('data-field');
+        const verb = currentRoundVerbs[index];
+        const expectedRaw = verb[field];
+        const userAnswer = normalizeInput(input.value);
+        const allowedAnswers = expectedRaw
+          .split('/')
+          .map(part => normalizeInput(part))
+          .filter(Boolean);
 
-      const fb = document.getElementById(`fb-${index}-${field}`);
+        const fb = document.getElementById(`fb-${index}-${field}`);
+        input.disabled = true;
 
-      if (allowedAnswers.includes(userAnswer)) {
-        input.classList.remove('incorrect');
-        input.classList.add('correct');
-        fb.textContent = 'Richtig! 🎉';
-        fb.className = 'feedback good';
-      } else {
-        input.classList.remove('correct');
-        input.classList.add('incorrect');
-        fb.textContent = `Richtig wäre: ${expectedRaw}`;
-        fb.className = 'feedback bad';
-      }
+        if (allowedAnswers.includes(userAnswer)) {
+          correctCount++;
+          input.classList.remove('incorrect');
+          input.classList.add('correct');
+          fb.textContent = 'Richtig! 🎉';
+          fb.className = 'feedback good';
+        } else {
+          input.classList.remove('correct');
+          input.classList.add('incorrect');
+          fb.textContent = `Richtig: ${expectedRaw}`;
+          fb.className = 'feedback bad';
+        }
+      });
 
-      updateProgress();
+      isChecked = true;
+      document.getElementById('checkBtn').disabled = true;
+      document.getElementById('nextRoundBtn').disabled = false;
+      updateProgress(correctCount, inputs.length);
+      document.getElementById('nextRoundBtn').focus();
     }
 
-    function updateProgress() {
-      const total = verbs.length * 3;
-      const correctInputs = document.querySelectorAll('.answer.correct').length;
-      const pct = total > 0 ? (correctInputs / total) * 100 : 0;
+    function updateProgress(correctCount = 0, total = currentRoundVerbs.length * 3) {
+      const pct = total > 0 ? (correctCount / total) * 100 : 0;
       document.getElementById('progressFill').style.width = pct + '%';
-      document.getElementById('progressText').textContent = `${correctInputs} / ${total} gelöst`;
+      document.getElementById('progressText').textContent = `${correctCount} / ${total} richtig`;
     }
+
+    document.getElementById('checkBtn').addEventListener('click', checkRound);
+    document.getElementById('nextRoundBtn').addEventListener('click', () => {
+      roundNumber += 1;
+      startRound();
+    });
 
     loadVerbs();
   </script>
